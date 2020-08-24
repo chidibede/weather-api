@@ -1,0 +1,18 @@
+{
+  "author": "Chidi Bede",
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "mime-types": "^2.1.27",
+    "node-static": "^0.7.11"
+  }
+}
