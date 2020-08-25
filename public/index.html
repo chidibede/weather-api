@@ -67,7 +67,7 @@
                 <label for="city">Choose a City of choice:</label>
 
                 <select id="city" style="width: 100px;">
-                    <option value="londn">London</option>
+                    <option value="london">London</option>
                     <option value="lagos">Lagos</option>
                     <option value="manchester">manchester</option>
                     <option value="california">California</option>
@@ -95,23 +95,27 @@
         crossorigin="anonymous"></script>
 
     <script>
-       //const apiUrl = "http://localhost:5000/requests";
-       const apiUrl = "https://weather-simple-api.herokuapp.com/requests"
+
         const kelvinToCelsius = (temp_in_k) => {
             const temp_in_c = temp_in_k - 273;
             return temp_in_c;
         };
 
         function loadWeatherData() {
+            const sel = document.getElementById('city')
+            var city_name = sel.options[sel.selectedIndex].value;
+            //const apiUrl = `http://localhost:5000/requests/${city_name}`;
+            const apiUrl = `https://weather-simple-api.herokuapp.com/requests/${city_name}`
+            console.log(city_name);
             fetch(apiUrl).then(response => {
                 return response.json()
             }).then(data => {
-                console.log(data);
-                var city = "<h3> City: " + "London" + "</h3>" + "<br>"
+                var city = "<h3> City: " + city_name + "</h3>" + "<br>"
                 var temp = "<p> Temp: " + Math.round(kelvinToCelsius(data.temp)) + " Degree Celcius" + "</p>" + "<br>"
                 var min_temp = "<p> Minimum Temp: " + Math.round(kelvinToCelsius(data.temp_min)) + " Degree Celcius" + "</p>" + "<br>"
-                var max_temp = "<p> Maximum Temp: " + Math.round(kelvinToCelsius(data.temp_max)) +" Degree Celcius" + "</p>" + "<br>"
-                var concat_strings = city + temp + min_temp + max_temp
+                var max_temp = "<p> Maximum Temp: " + Math.round(kelvinToCelsius(data.temp_max)) + " Degree Celcius" + "</p>" + "<br>"
+                var humidity = "<p> Humidity: " + data.humidity + " gkg-1" + "</p>" + "<br>"
+                var concat_strings = city + temp + min_temp + max_temp + humidity
                 document.getElementById('weather-details-div').innerHTML = concat_strings
             })
 

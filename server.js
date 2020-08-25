@@ -2,20 +2,14 @@ require("dotenv").config();
 const http = require("http");
 const https = require("https");
 const url = require("url");
-const nodeStatic = require('node-static');
-const fs = require('fs');
+const nodeStatic = require("node-static");
+const fs = require("fs");
 const lookup = require("mime-types").lookup;
 
-let fileServer = new nodeStatic.Server('./public');
+let fileServer = new nodeStatic.Server("./public");
 
 // api key
 const api_key = process.env.API_KEY;
-
-// city
-const city_name = "London";
-
-// API endpoint
-const endpoint = `https://api.openweathermap.org/data/2.5/weather?q=${city_name}&appid=${api_key}`;
 
 const server = http.createServer(async (req, res) => {
   if (req.url === "/" && req.method === "GET") {
@@ -41,26 +35,97 @@ const server = http.createServer(async (req, res) => {
         res.end(content);
       }
     });
-  } else if (req.url === "/requests" && req.method === "GET") {
-    await https.get(endpoint, (resp) => {
-      let body = "";
-      resp.on("data", (chunk) => {
-        body += chunk;
-      });
+  } else if (req.url === "/requests/london" && req.method === "GET") {
+      await https.get(
+        `https://api.openweathermap.org/data/2.5/weather?q=london&appid=${api_key}`,
+        (resp) => {
+          let body = "";
+          resp.on("data", (chunk) => {
+            body += chunk;
+          });
 
-      resp.on("end", () => {
-        const apiBody = JSON.parse(body);
-        res.writeHead(200, { "content-type": "application/json" });
-        res.write(JSON.stringify(apiBody.main));
-        res.end();
-      });
-    });
-  } else {
-    res.writeHead(404, { "content-type": "text/plain" });
-    res.write("Page not Found");
-    res.end();
-  }
-});
+          resp.on("end", () => {
+            const apiBody = JSON.parse(body);
+            res.writeHead(200, { "content-type": "application/json" });
+            res.write(JSON.stringify(apiBody.main));
+            res.end();
+          });
+        }
+      );
+    }else if (req.url === "/requests/malabo" && req.method === "GET") {
+        await https.get(
+          `https://api.openweathermap.org/data/2.5/weather?q=malabo&appid=${api_key}`,
+          (resp) => {
+            let body = "";
+            resp.on("data", (chunk) => {
+              body += chunk;
+            });
+  
+            resp.on("end", () => {
+              const apiBody = JSON.parse(body);
+              res.writeHead(200, { "content-type": "application/json" });
+              res.write(JSON.stringify(apiBody.main));
+              res.end();
+            });
+          }
+        );
+      }else if (req.url === "/requests/lagos" && req.method === "GET") {
+        await https.get(
+          `https://api.openweathermap.org/data/2.5/weather?q=lagos&appid=${api_key}`,
+          (resp) => {
+            let body = "";
+            resp.on("data", (chunk) => {
+              body += chunk;
+            });
+  
+            resp.on("end", () => {
+              const apiBody = JSON.parse(body);
+              res.writeHead(200, { "content-type": "application/json" });
+              res.write(JSON.stringify(apiBody.main));
+              res.end();
+            });
+          }
+        );
+      }else if (req.url === "/requests/manchester" && req.method === "GET") {
+        await https.get(
+          `https://api.openweathermap.org/data/2.5/weather?q=manchester&appid=${api_key}`,
+          (resp) => {
+            let body = "";
+            resp.on("data", (chunk) => {
+              body += chunk;
+            });
+  
+            resp.on("end", () => {
+              const apiBody = JSON.parse(body);
+              res.writeHead(200, { "content-type": "application/json" });
+              res.write(JSON.stringify(apiBody.main));
+              res.end();
+            });
+          }
+        );
+      }else if (req.url === "/requests/california" && req.method === "GET") {
+        await https.get(
+          `https://api.openweathermap.org/data/2.5/weather?q=california&appid=${api_key}`,
+          (resp) => {
+            let body = "";
+            resp.on("data", (chunk) => {
+              body += chunk;
+            });
+  
+            resp.on("end", () => {
+              const apiBody = JSON.parse(body);
+              res.writeHead(200, { "content-type": "application/json" });
+              res.write(JSON.stringify(apiBody.main));
+              res.end();
+            });
+          }
+        );
+      } else {
+      res.writeHead(404, { "content-type": "text/plain" });
+      res.write("Page not Found");
+      res.end();
+    }
+  });
 
 const port = process.env.PORT || 5000;
 
