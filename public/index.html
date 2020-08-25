@@ -95,8 +95,8 @@
         crossorigin="anonymous"></script>
 
     <script>
-       // const apiUrl = "http://localhost:5000/requests";
-        const apiUrl = "https://weather-simple-api.herokuapp.com/requests"
+       const apiUrl = "http://localhost:5000/requests";
+       // const apiUrl = "https://weather-simple-api.herokuapp.com/requests"
         const kelvinToCelsius = (temp_in_k) => {
             const temp_in_c = temp_in_k - 273;
             return temp_in_c;
@@ -107,10 +107,10 @@
                 return response.json()
             }).then(data => {
                 console.log(data);
-                var city = "<h3> City: " + data.temp + "</h3>" + "<br>"
-                var temp = "<p> Temp: " + kelvinToCelsius(data.temp) + "</p>" + "<br>"
-                var min_temp = "<p> Minimum Temp: " + kelvinToCelsius(data.temp_min) + "</p>" + "<br>"
-                var max_temp = "<p> Maximum Temp: " + kelvinToCelsius(data.temp_max) + "</p>" + "<br>"
+                var city = "<h3> City: " + "London" + "</h3>" + "<br>"
+                var temp = "<p> Temp: " + Math.round(kelvinToCelsius(data.temp)) + " Degree Celcius" + "</p>" + "<br>"
+                var min_temp = "<p> Minimum Temp: " + Math.round(kelvinToCelsius(data.temp_min)) + " Degree Celcius" + "</p>" + "<br>"
+                var max_temp = "<p> Maximum Temp: " + Math.round(kelvinToCelsius(data.temp_max)) +" Degree Celcius" + "</p>" + "<br>"
                 var concat_strings = city + temp + min_temp + max_temp
                 document.getElementById('weather-details-div').innerHTML = concat_strings
             })
